@@ -21,30 +21,23 @@ import reactor.core.publisher.Mono;
 
 public class PersonServiceTest {
 
-	PersonService personService;
-	PersonRepository personRepo;
+	PersonService personService = null;
+	PersonRepository personRepo = null;
 
-	// @Before
-	// public void init() {
-	// PersonRepository personRepo = mock(PersonRepository.class);
-	// personService = new PersonService(personRepo);
-	// }
+	@Before
+	public void init() {
+		personRepo = mock(PersonRepository.class);
+		personService = new PersonService(personRepo);
+	}
 
 	@Test
 	public void testForFindPersonById() {
-
-		// assertTrue("BELSOON".equalsIgnoreCase("belsoon"));
-		assertTrue("BelsOon".equalsIgnoreCase("BELSOON"));
-
-		PersonRepository personRepo = mock(PersonRepository.class);
-		personService = new PersonService(personRepo);
 
 		Person p = new Person();
 		p.setId("test");
 		p.setName("homer");
 		Mono<String> anyString = any();
 		given(personRepo.findById(anyString)).willReturn(Mono.just(p));
-		// given(personService.findPerson(any())).willReturn(Mono.just(p));
 
 		Person p2 = personService.findPerson(Mono.just("test")).block();
 
@@ -54,9 +47,6 @@ public class PersonServiceTest {
 
 	@Test
 	public void testForInsertPerson() {
-
-		PersonRepository personRepo = mock(PersonRepository.class);
-		personService = new PersonService(personRepo);
 
 		Person p = new Person();
 		p.setId("test");
@@ -73,9 +63,6 @@ public class PersonServiceTest {
 
 	@Test
 	public void testForDeletePerson() {
-
-		PersonRepository personRepo = mock(PersonRepository.class);
-		personService = new PersonService(personRepo);
 
 		Person p = new Person();
 		p.setId("test");
