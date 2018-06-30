@@ -21,7 +21,8 @@ public class PersonHandler {
 		return personService
 				.findPerson(Mono.just(request.pathVariable("id")))
 						.flatMap(person -> ServerResponse.ok()
-								.contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(person)))
+								.contentType(MediaType.APPLICATION_JSON)
+								.body(BodyInserters.fromObject(person)))
 						.switchIfEmpty(ServerResponse.notFound().build());
 						
 
@@ -29,7 +30,7 @@ public class PersonHandler {
 
 	public Mono<ServerResponse> insertPerson(ServerRequest request) {
 		return personService.insertPerson(request.bodyToMono(Person.class))
-				.flatMap(person -> ServerResponse.ok().build());
+				.flatMap(person -> ServerResponse.created(null).build());
 	}
 
 	public Mono<ServerResponse> deletePerson(ServerRequest request) {

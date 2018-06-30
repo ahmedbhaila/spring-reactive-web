@@ -1,5 +1,6 @@
 package com.bhailaverse.reactive;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
@@ -8,6 +9,7 @@ import reactor.core.publisher.Mono;
 public class PersonService {
 	private PersonRepository personRepository;
 
+	@Autowired
 	public PersonService(PersonRepository personRepository) {
 		this.personRepository = personRepository;
 	}
